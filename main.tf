@@ -1,6 +1,9 @@
 # Copyright (c) HashiCorp, Inc.
 # SPDX-License-Identifier: MIT
 
+# according to this tutorial: 
+# https://developer.hashicorp.com/terraform/tutorials/applications/digitalocean-provider
+
 terraform {
   required_version = ">= 1.0.0"
 
