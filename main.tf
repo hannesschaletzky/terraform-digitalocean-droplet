@@ -26,5 +26,5 @@ resource "digitalocean_droplet" "terramino" {
   ssh_keys = [
     "4e:9f:83:c8:59:60:a5:cd:a1:51:35:aa:06:28:b9:81"
   ]
-  # user_data = file("terramino_app.yaml")
+  user_data = file("cloud-init-2.yaml")
 }

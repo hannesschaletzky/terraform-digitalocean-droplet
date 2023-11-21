@@ -1,0 +1,27 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MIT
+
+# https://docs.digitalocean.com/products/droplets/how-to/automate-setup-with-cloud-init/
+# config with cloud-init
+# see docs: https://cloudinit.readthedocs.io/en/latest/reference/modules.html#ssh
+# groups:
+#   - ubuntu: [root, sys]
+#   - hashicorp
+
+# Add users to the system. Users are added after groups are added.
+users:
+  - name: terraform
+    shell: /bin/bash
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDkYvjd4ZqlM57Vsm6p6GF7C47LdOxhqgH+Cn42xmHLt+PxdvjfT0kbST4ucNXX5YjA1VmebmnTMNXFLUGRj0M+Ke6CHH+RevdSxqGhFeIhjS9b9nSfVOJyRT/ISkJIPc2gzsXxikIEqpN63zDaRa4YoNvJuiIETsnjpJk8ORCSsGbMyxh4sjW9khcDI4QbNKl0xWMyJTekbMJAj1A2WZc+Oc+ruVZFd4igqLhoIDHxh8Rzqa3yvthGjGLblK6kz6Lwpu28PGQcxxsPp0nr0TGBhG69HjO3Vvax6fQfTFoSFJsk3e7caI9l53oj4jXoIWghLJciqxs5CXuTv80w6MzfnHXu/znwHC96pwQBOl7OgQsmPtaoivtH82+0x+VE36ByliPfXHqkOT95UA110YTBGfodu0uTbSDjWQJu7Pj6KHI7cTNPLRYmsx43GRGmh7S3SsMJ7shV/HORSADkjRih7HaSHdwMVhVueFrLYDQeov+yNybHqbf1LZVfRKG4QW0= info@hschaletzky.com
+
+packages:
+  - nginx
+# runcmd:
+#   - sudo apt-get update
+#   - sudo apt install apache2 -q -y
+#   - sudo curl https://raw.githubusercontent.com/hashicorp/learn-terraform-digitalocean-droplet/main/app/index.php -O
+#   - sudo rm /var/www/html/index.html
+#   - sudo mv index.php /var/www/html
+#   - sudo systemctl restart apache2
