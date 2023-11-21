@@ -17,6 +17,7 @@ terraform {
 
 provider "digitalocean" {}
 
+# see here for available values https://slugs.do-api.dev/
 resource "digitalocean_droplet" "terramino" {
   image     = "ubuntu-23-10-x64"
   name      = "terramino"
