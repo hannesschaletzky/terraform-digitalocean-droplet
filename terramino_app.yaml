@@ -3,7 +3,7 @@
 
 #cloud-config
 groups:
-  - ubuntu: [root,sys]
+  - ubuntu: [root, sys]
   - hashicorp
 
 # Add users to the system. Users are added after groups are added.
@@ -17,7 +17,7 @@ users:
     groups: users, admin
     lock_passwd: false
     ssh_authorized_keys:
-      - # Paste your created SSH key here
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC2Xhke4r2wCnu4RykkIZP5GnBMcoSTY0N8Fwt9/20wxbE0zJWzSsp41wHG7Ks+qWEzXU6srzWjT/WEmBlwneYkj1Av36xnUHPN3bCj/nbkGlnZkOyOTbR2EXLVTWORVEL4YjMrRO60vuG8R4/lWlEu9r/r7Sb9eng/aZtnqO5FthLgwtpI768Ns4joGW4hgvFOLPcOYqk3T/v7hnqLqaOYR3sGIJfCOT/VqlrFyIh0+Fdd94gCTMpsI8GbZWoyKh1FCsknpN8qL2Lxx30Y7ShwzDEZcmyzh1YlsY2Ohp3BKaU4WU1ut0RnWpIouEq4KGCaP4nJnkFaZI+gIGm12u1+1HQGJmwFLDcFYBzqAW0Vv62cRWFSqwpbXRIopnAjjL/U+CSIfIjejbf/cAZGNx+ds7gKlaZP/Skv3zNP+R9pPQVED55ihQ47niOmAD32O6vxo+KCkocPdMvY3ehJSRHgBROxHCaQSnIj5palKdMImqXaCDUiR/zMNSPWCSI793c= hannesschaletzky@HannesMlservice
 
 runcmd:
   - sudo apt-get update
