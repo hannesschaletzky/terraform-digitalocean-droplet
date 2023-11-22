@@ -5,12 +5,15 @@ packages:
   - nginx
   - nodejs
   - npm
+  - certbot
+  - python3-certbot-nginx
 write_files:
   - owner: www-data:www-data
     path: /etc/nginx/sites-available/default
     content: |
       server {
         listen 80;
+        server_name ugly.hschaletzky.de;
         location / {
           proxy_pass http://localhost:3000;
           proxy_http_version 1.1;
@@ -20,8 +23,7 @@ write_files:
           proxy_cache_bypass $http_upgrade;
         }
       }
-  - owner: azureuser:azureuser
-    path: /home/azureuser/myapp/index.js
+  - path: /code/index.js
     content: |
       var express = require('express')
       var app = express()
@@ -32,9 +34,57 @@ write_files:
       app.listen(3000, function () {
         console.log('Hello world app listening on port 3000!')
       })
+  - path: /code/package.json
+    content: |
+      {
+        "name": "boilerplatebackend",
+        "version": "1.0.0",
+        "description": "",
+        "main": "index.js",
+        "scripts": {
+          "test": "echo \"Error: no test specified\" && exit 1"
+        },
+        "dependencies": {
+          "express": "^4.18.2"
+        },
+        "author": "HannesSchaletzky",
+        "license": "MIT"
+      }
+  # see here for more info: https://askubuntu.com/a/919059
+  - path: /etc/systemd/system/afterbooting.service
+    content: |
+      [Unit]
+      Description=After Reboot Service
+
+      [Service]
+      ExecStart=/etc/exec-after-reboot.sh
+
+      [Install]
+      WantedBy=multi-user.target
+  - path: /etc/exec-after-reboot.sh
+    content: |
+      pm2 start /code/index.js
+
 runcmd:
-  - service nginx restart
-  - cd "/home/azureuser/myapp"
-  - npm init
-  - npm install express -y
-  - nodejs index.js
+  # setup backend
+  - npm i -g pm2
+  # enable firewall
+  - ufw allow ssh
+  - ufw allow http
+  - ufw allow https
+  - ufw enable
+  - ufw status
+
+  # configure reboot script
+  - chmod a+x /etc/exec-after-reboot.sh
+  - sudo systemctl start afterbooting
+  - sudo systemctl enable afterbooting
+
+  # reboot to tackle:
+  #   The currently running kernel version is not the expected kernel version 6.2.0-37-generic.
+  #   Restarting the system to load the new kernel will not be handled automatically, so you should consider rebooting. [Return]
+  - sudo reboot
+
+  # after reboot:
+  # pm2 start /code/index.js
+  # certbot install for ugly.hschaletzky.de
