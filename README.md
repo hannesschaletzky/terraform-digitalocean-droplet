@@ -27,7 +27,6 @@ multipass shell test-vm
 ## delete vm
 
 ```
-multipass stop test-vm
 multipass delete test-vm
 multipass purge
 multipass list
@@ -42,15 +41,18 @@ sudo cat /var/log/cloud-init-output.log
 
 ```
 
-# certbot installation on vm
+# steps to do on droplet
+
+## ssl for domains
 
 ```
-apt install certbot
-apt install python3-certbot-nginx
+certbot --nginx
 ```
 
-OR
+## private key for git
 
 ```
-snap install --classic certbot
+touch id_rsa in ~/.ssh folder
+copy key into file with nano id_rsa
+chmod 400 ~/.ssh/id_rsa
 ```
