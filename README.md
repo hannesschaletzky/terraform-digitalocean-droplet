@@ -56,3 +56,13 @@ touch id_rsa in ~/.ssh folder
 copy key into file with nano id_rsa
 chmod 400 ~/.ssh/id_rsa
 ```
+
+## allow large file upload
+
+https://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size
+
+```
+client_max_body_size 0;
+```
+
+in server block to not check for any body size
